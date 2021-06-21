@@ -36,9 +36,7 @@ function Books() {
       <ul className="BookList">
         {bookArray.map((book) => (
           <SingleBook key={book.bookId} book={book} />
-
         ))}
-
       </ul>
     </div>
   );
