@@ -30,7 +30,7 @@ function Books() {
   return (
     <div className="books">
       <div className="title">
-        <h3>Libros</h3>
+        <h3>Books</h3>
       </div>
 
       <ul className="book-list">
