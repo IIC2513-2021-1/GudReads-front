@@ -1,5 +1,5 @@
 import React from 'react';
-import SingleBook from './singleBook';
+import SingleBook from './SingleBook';
 import '../styles/books.css';
 
 function Books() {
@@ -28,12 +28,12 @@ function Books() {
 
   ];
   return (
-    <div className="Books">
-      <div className="Title">
-        <h1>GudReads Libros</h1>
+    <div className="books">
+      <div className="title">
+        <h3>Libros</h3>
       </div>
 
-      <ul className="BookList">
+      <ul className="book-list">
         {bookArray.map((book) => (
           <SingleBook key={book.bookId} book={book} />
         ))}
