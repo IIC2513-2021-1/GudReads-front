@@ -7,7 +7,7 @@ export default function AuthorDetail() {
 
   return (
     <div>
-      <Link to="/authors">Back</Link>
+      <Link to="/authors">Authors</Link>
       <h2>{`Author ${id}`}</h2>
       <Books />
     </div>

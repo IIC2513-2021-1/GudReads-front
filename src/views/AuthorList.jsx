@@ -9,7 +9,7 @@ export default function AuthorList() {
 
   return (
     <div>
-      <Link to="/">Back</Link>
+      <Link to="/">Home</Link>
       <h2>Authors</h2>
       {authors.map(({ id }) => <div key={id}><Link to={`/authors/${id}`}>{`Author ${id}`}</Link></div>)}
     </div>
