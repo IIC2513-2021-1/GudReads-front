@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SingleBook from './SingleBook';
 import '../styles/books.css';
+import { useAuth } from '../contexts/AuthContext';
 
 function Books() {
+  const { currentUser, handleLoginUser } = useAuth();
   const bookArray = [
     {
       bookId: 1,
@@ -25,12 +27,27 @@ function Books() {
       title: 'Libro 4',
       img: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/thriller-fantasy-book-cover-castle-mountain-design-template-890a4e62a2009241b05e70a59186240d_screen.jpg?ts=1599683486',
     },
-
   ];
+
+  useEffect(() => {
+    if (!currentUser) {
+      const user = {
+        id: 1,
+        firstName: 'Diego',
+        lastName: 'Solari',
+        email: 'dasolari@uc.cl',
+        token: '4265t2uygausyfguyagbuy',
+        sessionTime: 1000 * 8,
+      };
+      handleLoginUser(user);
+    }
+  }, []);
+
   return (
     <div className="books">
       <div className="title">
         <h3>Books</h3>
+        <h4>{currentUser?.firstName}</h4>
       </div>
 
       <ul className="book-list">
