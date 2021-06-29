@@ -47,7 +47,7 @@ export default function AuthorList() {
           </p>
           )}
           <h2>Authors</h2>
-          {authors.map(({ id }) => <div key={id}><Link to={`/authors/${id}`}>{`Author ${id}`}</Link></div>)}
+          {authors.map(({ id, firstName, lastName }) => <div key={id}><Link to={`/authors/${id}`}>{`${firstName} ${lastName}`}</Link></div>)}
           <CreateAuthor setAuthors={setAuthors} />
         </div>
       )}
