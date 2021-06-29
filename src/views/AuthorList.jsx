@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Deserializer } from 'jsonapi-serializer';
 import { Link } from 'react-router-dom';
 
 export default function AuthorList() {
@@ -8,7 +9,7 @@ export default function AuthorList() {
 
   useEffect(() => {
     setLoading(true);
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch(`${process.env.REACT_APP_API_URL}/api/authors`)
       .then((response) => {
         if (response.status !== 200) {
           setError(true);
@@ -16,7 +17,9 @@ export default function AuthorList() {
         }
         return response.json();
       })
-      .then(setAuthors)
+      .then((data) => {
+        new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(data, (_error, authorList) => setAuthors(authorList));
+      })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
@@ -32,7 +35,7 @@ export default function AuthorList() {
       ) : (
         <div>
           <h2>Authors</h2>
-          {authors.map(({ id, name }) => <div key={id}><Link to={`/authors/${id}`}>{name}</Link></div>)}
+          {authors.map(({ id, firstName, lastName }) => <div key={id}><Link to={`/authors/${id}`}>{`${firstName} ${lastName}`}</Link></div>)}
         </div>
       )}
     </div>
