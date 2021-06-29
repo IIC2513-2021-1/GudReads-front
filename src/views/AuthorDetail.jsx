@@ -38,7 +38,7 @@ export default function AuthorDetail() {
         <div>
           <h2>{`${author.firstName} ${author.lastName}`}</h2>
           <p>{`The author was born in ${author.birthDate}`}</p>
-          <img src={author.imageUrl} alt="author" />
+          <img src={author.imageUrl} alt={`${author.firstName} ${author.lastName}`} />
           <Books />
         </div>
       )}
