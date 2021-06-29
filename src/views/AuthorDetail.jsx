@@ -36,12 +36,10 @@ export default function AuthorDetail() {
         <h2>Something went wrong, please try again later</h2>
       ) : (
         <div>
-          <div>
-            <h2>{`${author.firstName} ${author.lastName}`}</h2>
-            <p>{`The author was born in ${author.birthDate}`}</p>
-            <img src={author.imageUrl} alt="author" />
-            <Books />
-          </div>
+          <h2>{`${author.firstName} ${author.lastName}`}</h2>
+          <p>{`The author was born in ${author.birthDate}`}</p>
+          <img src={author.imageUrl} alt="author" />
+          <Books />
         </div>
       )}
     </div>
