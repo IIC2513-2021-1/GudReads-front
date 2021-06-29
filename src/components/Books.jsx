@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import SingleBook from './SingleBook';
 import '../styles/books.css';
-import { useAuth } from '../contexts/AuthContext';
 
 function Books() {
-  const { currentUser, handleLoginUser } = useAuth();
   const bookArray = [
     {
       bookId: 1,
@@ -29,25 +27,10 @@ function Books() {
     },
   ];
 
-  useEffect(() => {
-    if (!currentUser) {
-      const user = {
-        id: 1,
-        firstName: 'Diego',
-        lastName: 'Solari',
-        email: 'dasolari@uc.cl',
-        token: '4265t2uygausyfguyagbuy',
-        sessionTime: 1000 * 8,
-      };
-      handleLoginUser(user);
-    }
-  }, []);
-
   return (
     <div className="books">
       <div className="title">
         <h3>Books</h3>
-        <h4>{currentUser?.firstName}</h4>
       </div>
 
       <ul className="book-list">
