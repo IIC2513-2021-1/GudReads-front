@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Deserializer } from 'jsonapi-serializer';
 import useAuth from '../hooks/useAuth';
 
@@ -9,7 +9,7 @@ const initialValues = {
   birthDate: '',
 };
 
-export default function CreateAuthor({ setAuthors }) {
+export default function CreateAuthor({ addAuthor }) {
   const [values, setValues] = useState(initialValues);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -23,7 +23,7 @@ export default function CreateAuthor({ setAuthors }) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${currentUser?.access_token}`,
       },
-      body: JSON.stringify({ ...values }),
+      body: JSON.stringify(values),
     };
     fetch(`${process.env.REACT_APP_API_URL}/api/authors`, requestOptions)
       .then((response) => {
@@ -35,13 +35,15 @@ export default function CreateAuthor({ setAuthors }) {
       })
       .then((data) => {
         new Deserializer({ keyForAttribute: 'camelCase' })
-          .deserialize(data, (_error, author) => setAuthors((prevState) => [...prevState, author]));
+          .deserialize(data, (_error, author) => addAuthor(author));
       })
       .catch(() => {
         setError(true);
-        setValues(initialValues);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setValues(initialValues);
+        setLoading(false);
+      });
   };
 
   const handleChange = function handleChange(event) {
@@ -51,10 +53,10 @@ export default function CreateAuthor({ setAuthors }) {
     }));
   };
 
-  let isDisabled = true;
-  if (values.firstName && values.lastName && values.birthDate) {
-    isDisabled = false;
-  }
+  const isDisabled = useMemo(
+    () => !(values.firstName && values.lastName && values.birthDate),
+    [values],
+  );
 
   if (loading) {
     return <h2>Loading...</h2>;

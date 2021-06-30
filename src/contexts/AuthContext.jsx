@@ -29,7 +29,7 @@ const AuthContextProvider = ({ children }) => {
     clearStoredUser();
     clearSessionExpDate();
     history.push('/login');
-  }, []);
+  }, [history]);
 
   useEffect(() => {
     if (currentUser && sessionExpDate) {

@@ -7,20 +7,15 @@ export default function Home() {
 
   return (
     <div>
-      <div>
-        <h2>
-          Welcome to Gud Reads
-          {' '}
-          {currentUser?.firstName}
-        </h2>
-        <Link to="/authors">Authors</Link>
-      </div>
+      <h2>
+        Welcome to Gud Reads
+        {' '}
+        {currentUser?.firstName}
+      </h2>
+      <Link to="/authors">Authors</Link>
       <div>
         {currentUser ? (
-          <>
-            <h3>Logout from your current account in order to log in</h3>
-            <button type="button" onClick={handleUserLogout}>Logout</button>
-          </>
+          <button type="button" onClick={handleUserLogout}>Logout</button>
         ) : (
           <>
             <h3>Have an account? Log In</h3>

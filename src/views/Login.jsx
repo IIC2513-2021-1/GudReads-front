@@ -20,7 +20,7 @@ export default function Login() {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...values }),
+      body: JSON.stringify(values),
     };
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth`, requestOptions);
@@ -30,10 +30,10 @@ export default function Login() {
       }
       const user = await response.json();
       handleUserLogin(user);
-      setLoading(false);
     } catch (error) {
-      setValues(initialValues);
       setErrorMessage(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,9 +48,10 @@ export default function Login() {
     return <h2>Loading...</h2>;
   }
 
+  if (currentUser) return <Redirect to="/" />;
+
   return (
     <div>
-      {currentUser && <Redirect to="/" />}
       <Link to="/">Go Back</Link>
       <h2>Login with your account</h2>
       <form onSubmit={handleSubmit}>

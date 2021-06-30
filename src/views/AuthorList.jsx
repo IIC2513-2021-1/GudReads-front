@@ -28,6 +28,8 @@ export default function AuthorList() {
       .finally(() => setLoading(false));
   }, []);
 
+  const addAuthor = (author) => setAuthors((prevState) => [...prevState, author]);
+
   if (loading) {
     return <h2>Loading...</h2>;
   }
@@ -48,7 +50,7 @@ export default function AuthorList() {
           )}
           <h2>Authors</h2>
           {authors.map(({ id, firstName, lastName }) => <div key={id}><Link to={`/authors/${id}`}>{`${firstName} ${lastName}`}</Link></div>)}
-          <CreateAuthor setAuthors={setAuthors} />
+          <CreateAuthor addAuthor={addAuthor} />
         </div>
       )}
     </div>
