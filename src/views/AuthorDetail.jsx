@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Deserializer } from 'jsonapi-serializer';
 import Books from '../components/Books';
+import useAuth from '../hooks/useAuth';
 
 export default function AuthorDetail() {
   const { id } = useParams();
   const [author, setAuthor] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     setLoading(true);
@@ -20,7 +22,8 @@ export default function AuthorDetail() {
         return response.json();
       })
       .then((data) => {
-        new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(data, (_error, authorData) => setAuthor(authorData));
+        new Deserializer({ keyForAttribute: 'camelCase' })
+          .deserialize(data, (_error, authorData) => setAuthor(authorData));
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
@@ -29,6 +32,7 @@ export default function AuthorDetail() {
   if (loading) {
     return <h2>Loading...</h2>;
   }
+
   return (
     <div>
       <Link to="/authors">Authors</Link>
@@ -36,6 +40,13 @@ export default function AuthorDetail() {
         <h2>Something went wrong, please try again later</h2>
       ) : (
         <div>
+          {currentUser && (
+            <p>
+              Logged in as
+              {' '}
+              {currentUser.email}
+            </p>
+          )}
           <h2>{`${author.firstName} ${author.lastName}`}</h2>
           <p>{`The author was born in ${author.birthDate}`}</p>
           <img src={author.imageUrl} alt={`${author.firstName} ${author.lastName}`} />

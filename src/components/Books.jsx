@@ -25,8 +25,8 @@ function Books() {
       title: 'Libro 4',
       img: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/thriller-fantasy-book-cover-castle-mountain-design-template-890a4e62a2009241b05e70a59186240d_screen.jpg?ts=1599683486',
     },
-
   ];
+
   return (
     <div className="books">
       <div className="title">
