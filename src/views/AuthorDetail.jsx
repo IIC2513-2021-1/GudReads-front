@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { Deserializer } from 'jsonapi-serializer';
 import Books from '../components/Books';
 
 export default function AuthorDetail() {
@@ -10,7 +11,7 @@ export default function AuthorDetail() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/authors/${id}`)
       .then((response) => {
         if (response.status !== 200) {
           setError(true);
@@ -18,7 +19,9 @@ export default function AuthorDetail() {
         }
         return response.json();
       })
-      .then(setAuthor)
+      .then((data) => {
+        new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(data, (_error, authorData) => setAuthor(authorData));
+      })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
@@ -33,7 +36,9 @@ export default function AuthorDetail() {
         <h2>Something went wrong, please try again later</h2>
       ) : (
         <div>
-          <h2>{author.name}</h2>
+          <h2>{`${author.firstName} ${author.lastName}`}</h2>
+          <p>{`The author was born in ${author.birthDate}`}</p>
+          <img src={author.imageUrl} alt={`${author.firstName} ${author.lastName}`} />
           <Books />
         </div>
       )}
