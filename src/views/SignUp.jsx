@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 export default function SignUp() {
   const [loading, setLoading] = useState(false);
-  const [message. setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const createUser = async function createUser(values) {
     setLoading(true);
@@ -20,7 +20,7 @@ export default function SignUp() {
         const error = await response.text();
         throw new Error(error);
       }
-      setMessage("User has been sucesesfully created");
+      setMessage('User has been sucesesfully created');
     } catch (error) {
       setMessage(error.message);
     } finally {
