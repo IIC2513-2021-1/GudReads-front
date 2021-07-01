@@ -5,6 +5,7 @@ import AuthorList from './views/AuthorList';
 import AuthorDetail from './views/AuthorDetail';
 import NotFound from './views/NotFound';
 import Login from './views/Login';
+import SignUp from './views/SignUp';
 import AuthContextProvider from './contexts/AuthContext';
 
 export default function Routes() {
