@@ -17,6 +17,7 @@ export default function Routes() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/authors" component={AuthorList} />
           <Route exact path="/authors/:id" component={AuthorDetail} />
+          <Route exact path="/signup" component={SignUp} />
           <Route component={NotFound} />
         </Switch>
       </AuthContextProvider>

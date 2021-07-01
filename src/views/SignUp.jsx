@@ -1,5 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
@@ -7,33 +7,13 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  const createUser = async function createUser(values) {
-    setLoading(true);
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values),
-    };
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users`, requestOptions);
-      if (!response.ok) {
-        const error = await response.text();
-        throw new Error(error);
-      }
-      setMessage('User has been sucesesfully created');
-    } catch (error) {
-      setMessage(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   if (loading) {
     return <h2>Loading...</h2>;
   }
 
   return (
-    <div>
+    <div className="form">
+      <h2>Sign Up!</h2>
       <Formik
         initialValues={{
           firstName: '',
@@ -41,10 +21,10 @@ export default function SignUp() {
           email: '',
           password: '',
           passwordConfirmation: '',
-          acceptedTerms: false
+          acceptedTerms: false,
         }}
         validationSchema={Yup.object({
-          name: Yup.string()
+          firstName: Yup.string()
             .min(3, 'Your name must be at least 3 characters')
             .max(15, 'Your name must be 15 characters or less')
             .required('This field is required'),
@@ -64,45 +44,80 @@ export default function SignUp() {
             .required('Please confirm your password'),
           acceptedTerms: Yup.boolean()
             .required('Required')
-            .oneOf([true], 'Please accept terms and conditions')
+            .oneOf([true], 'Please accept terms and conditions'),
         })}
         onSubmit={async (values) => {
-          await createUser(values);
+          setLoading(true);
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(values),
+          };
+          try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users`, requestOptions);
+            if (!response.ok) {
+              const error = await response.text();
+              throw new Error(error);
+            }
+            setMessage('User has been sucesesfully created');
+          } catch (error) {
+            setMessage(error.message);
+          } finally {
+            setLoading(false);
+          }
         }}
-
       >
         {({ errors, touched }) => (
           <Form>
-            <Field name="firstName" />
-            {errors.firstName && touched.firstName ? (
-              <div>{errors.firstName}</div>
-            ) : null}
-            <Field name="lastName" />
-            {errors.lastName && touched.lastName ? (
-              <div>{errors.lastName}</div>
-            ) : null}
-            <Field name="email" />
-            {errors.email && touched.email ? (
-              <div>{errors.email}</div>
-            ) : null}
-            <Field name="password" />
-            {errors.password && touched.password ? (
-              <div>{errors.password}</div>
-            ) : null}
-            <Field name="passwordConfirmation" />
-            {errors.passwordConfirmation && touched.passwordConfirmation ? (
-              <div>{errors.passwordConfirmation}</div>
-            ) : null}
-            <Field type="checkbox" name="acceptedTerms" />
-            {errors.acceptedTerms && touched.acceptedTerms ? (
-              <div>{errors.acceptedTerms}</div>
-            ) : null}
-            <button type="submit">Create account</button>
+            <div>
+              <label htmlFor="firstName">First Name</label>
+              <Field name="firstName" placeholder="Name" />
+              {errors.firstName && touched.firstName ? (
+                <div>{errors.firstName}</div>
+              ) : null}
+            </div>
+            <div>
+              <label htmlFor="lastName">Last Name</label>
+              <Field name="lastName" placeholder="Lastname" />
+              {errors.lastName && touched.lastName ? (
+                <div>{errors.lastName}</div>
+              ) : null}
+            </div>
+            <div>
+              <label htmlFor="email">Email</label>
+              <Field name="email" placeholder="Email" className="field" />
+              {errors.email && touched.email ? (
+                <div>{errors.email}</div>
+              ) : null}
+            </div>
+            <div>
+              <label htmlFor="password">Password</label>
+              <Field name="password" placeholder="Password" className="field" />
+              {errors.password && touched.password ? (
+                <div>{errors.password}</div>
+              ) : null}
+            </div>
+            <div>
+              <label htmlFor="passwordConfirmation">Password Confirmation</label>
+              <Field name="passwordConfirmation" placeholder="Password Confirmation" />
+              {errors.passwordConfirmation && touched.passwordConfirmation ? (
+                <div>{errors.passwordConfirmation}</div>
+              ) : null}
+            </div>
+            <div>
+              <label htmlFor="acceptedTerms">Accept terms and conditions?</label>
+              <Field type="checkbox" name="acceptedTerms" className="field" />
+              {errors.acceptedTerms && touched.acceptedTerms ? (
+                <div>{errors.acceptedTerms}</div>
+              ) : null}
+            </div>
+            <div>
+              <button type="submit">Create account</button>
+            </div>
           </Form>
         )}
       </Formik>
       <p>{message}</p>
     </div>
   );
-
-};
+}
