@@ -92,14 +92,14 @@ export default function SignUp() {
             </div>
             <div>
               <label htmlFor="password">Password</label>
-              <Field name="password" placeholder="Password" className="field" />
+              <Field type="password" name="password" placeholder="Password" className="field" />
               {errors.password && touched.password ? (
                 <div>{errors.password}</div>
               ) : null}
             </div>
             <div>
               <label htmlFor="passwordConfirmation">Password Confirmation</label>
-              <Field name="passwordConfirmation" placeholder="Password Confirmation" />
+              <Field type="password" name="passwordConfirmation" placeholder="Password Confirmation" />
               {errors.passwordConfirmation && touched.passwordConfirmation ? (
                 <div>{errors.passwordConfirmation}</div>
               ) : null}
