@@ -13,7 +13,7 @@ export default function SignUp() {
 
   return (
     <div className="form">
-      <h2>Sign Up!</h2>
+      <h2>Sign up!</h2>
       <Formik
         initialValues={{
           firstName: '',
@@ -34,7 +34,7 @@ export default function SignUp() {
             .required('This field is required'),
           email: Yup.string()
             .email('Invalid email')
-            .required('Required'),
+            .required('This field is required'),
           password: Yup.string()
             .min(6, 'Your password must be at least 6 characters')
             .max(15, 'Your password must be 15 characters or less')
@@ -70,7 +70,7 @@ export default function SignUp() {
         {({ errors, touched }) => (
           <Form>
             <div>
-              <label htmlFor="firstName">First Name</label>
+              <label htmlFor="firstName">First Name:</label>
               <Field name="firstName" placeholder="Name" />
               {errors.firstName && touched.firstName ? (
                 <div>{errors.firstName}</div>
@@ -85,14 +85,14 @@ export default function SignUp() {
             </div>
             <div>
               <label htmlFor="email">Email</label>
-              <Field name="email" placeholder="Email" className="field" />
+              <Field name="email" placeholder="Email" />
               {errors.email && touched.email ? (
                 <div>{errors.email}</div>
               ) : null}
             </div>
             <div>
               <label htmlFor="password">Password</label>
-              <Field type="password" name="password" placeholder="Password" className="field" />
+              <Field type="password" name="password" placeholder="Password" />
               {errors.password && touched.password ? (
                 <div>{errors.password}</div>
               ) : null}
@@ -106,7 +106,7 @@ export default function SignUp() {
             </div>
             <div>
               <label htmlFor="acceptedTerms">Accept terms and conditions?</label>
-              <Field type="checkbox" name="acceptedTerms" className="field" />
+              <Field type="checkbox" name="acceptedTerms" />
               {errors.acceptedTerms && touched.acceptedTerms ? (
                 <div>{errors.acceptedTerms}</div>
               ) : null}
