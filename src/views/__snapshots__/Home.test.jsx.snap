@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home when user is logged in renders the home page with logout button 1`] = `
+<div>
+  <h2>
+    Welcome to Gud Reads
+     
+    Jalen
+  </h2>
+  <a
+    href="/authors"
+    onClick={[Function]}
+  >
+    Authors
+  </a>
+  <div>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      Logout
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Home when user is not logged in renders the home page with log in link 1`] = `
+<div>
+  <h2>
+    Welcome to Gud Reads
+     
+  </h2>
+  <a
+    href="/authors"
+    onClick={[Function]}
+  >
+    Authors
+  </a>
+  <div>
+    <h3>
+      Have an account? Log In
+    </h3>
+    <a
+      href="/login"
+      onClick={[Function]}
+    >
+      Login
+    </a>
+  </div>
+</div>
+`;
