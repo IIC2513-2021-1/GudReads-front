@@ -29,8 +29,8 @@ export default function SignUp() {
             .max(15, 'Your name must be 15 characters or less')
             .required('This field is required'),
           lastName: Yup.string()
-            .min(2, 'Your lastname must be at least 2 characters')
-            .max(15, 'Your lastname must be 15 characters or less')
+            .min(2, 'Your last name must be at least 2 characters')
+            .max(15, 'Your last name must be 15 characters or less')
             .required('This field is required'),
           email: Yup.string()
             .email('Invalid email')
@@ -55,11 +55,11 @@ export default function SignUp() {
           };
           try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users`, requestOptions);
-            if (!response.ok) {
+            if (response.status !== 201) {
               const error = await response.text();
               throw new Error(error);
             }
-            setMessage('User has been sucesesfully created');
+            setMessage('User has been successfully created');
           } catch (error) {
             setMessage(error.message);
           } finally {
@@ -72,44 +72,44 @@ export default function SignUp() {
             <div>
               <label htmlFor="firstName">First Name:</label>
               <Field name="firstName" placeholder="Name" />
-              {errors.firstName && touched.firstName ? (
+              {errors.firstName && touched.firstName && (
                 <div>{errors.firstName}</div>
-              ) : null}
+              )}
             </div>
             <div>
               <label htmlFor="lastName">Last Name</label>
-              <Field name="lastName" placeholder="Lastname" />
-              {errors.lastName && touched.lastName ? (
+              <Field name="lastName" placeholder="Last name" />
+              {errors.lastName && touched.lastName && (
                 <div>{errors.lastName}</div>
-              ) : null}
+              )}
             </div>
             <div>
               <label htmlFor="email">Email</label>
               <Field name="email" placeholder="Email" />
-              {errors.email && touched.email ? (
+              {errors.email && touched.email && (
                 <div>{errors.email}</div>
-              ) : null}
+              )}
             </div>
             <div>
               <label htmlFor="password">Password</label>
               <Field type="password" name="password" placeholder="Password" />
-              {errors.password && touched.password ? (
+              {errors.password && touched.password && (
                 <div>{errors.password}</div>
-              ) : null}
+              )}
             </div>
             <div>
               <label htmlFor="passwordConfirmation">Password Confirmation</label>
               <Field type="password" name="passwordConfirmation" placeholder="Password Confirmation" />
-              {errors.passwordConfirmation && touched.passwordConfirmation ? (
+              {errors.passwordConfirmation && touched.passwordConfirmation && (
                 <div>{errors.passwordConfirmation}</div>
-              ) : null}
+              )}
             </div>
             <div>
               <label htmlFor="acceptedTerms">Accept terms and conditions?</label>
               <Field type="checkbox" name="acceptedTerms" />
-              {errors.acceptedTerms && touched.acceptedTerms ? (
+              {errors.acceptedTerms && touched.acceptedTerms && (
                 <div>{errors.acceptedTerms}</div>
-              ) : null}
+              )}
             </div>
             <div>
               <button type="submit">Create account</button>

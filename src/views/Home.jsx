@@ -20,7 +20,7 @@ export default function Home() {
           <>
             <h3>Have an account? Log In</h3>
             <Link to="/login">Login</Link>
-            <h3>Dont have an account yet? Sign Up</h3>
+            <h3>Do not have an account yet? Sign Up</h3>
             <Link to="/signup">Sign up!</Link>
           </>
         )}
