@@ -46,6 +46,15 @@ exports[`Home when user is not logged in renders the home page with log in link 
     >
       Login
     </a>
+    <h3>
+      Do not have an account yet? Sign Up
+    </h3>
+    <a
+      href="/signup"
+      onClick={[Function]}
+    >
+      Sign up!
+    </a>
   </div>
 </div>
 `;
